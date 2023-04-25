@@ -4,7 +4,7 @@ const cors = require('cors');
 
 app.use(cors());
 
-const libraryRouter = require('./routes/libraryRouter');
-app.use('/', libraryRouter);
+const libraryRouter = require('./routes/library');
+app.use('/library', libraryRouter);
 
 app.listen(3000);
