@@ -1,10 +1,14 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
+// const libraryRouter = require('./routes/library');
+const routes = require('./routes');
+const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
 
-const libraryRouter = require('./routes/library');
-app.use('/library', libraryRouter);
+app.use('/books', routes.bookRouter);
+app.use('/author', routes.authorRouter);
 
-app.listen(3000);
+module.exports = app;
