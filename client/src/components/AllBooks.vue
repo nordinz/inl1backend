@@ -29,6 +29,10 @@ function deleteBook(id){
     return book.book_id != id
   })
 }
+
+function updateBook(bookId) {
+
+}
 console.log(books[0]);
 </script>
 
@@ -42,6 +46,9 @@ console.log(books[0]);
       <p>Author: {{ book.first_name }} {{ book.last_name }}</p>
       <div class="btn-wrapper">
         <button @click="deleteBook(book.book_id)" class="btn-pink">Delete Book</button>
+
+        <button @click="updateBook(book.book_id)" class="btn-pink">Borrow Book</button>
+        
       </div>
       
     </div>

@@ -11,14 +11,14 @@
         <router-link v-slot="{ isActive }" to="/search">
           <li :class="[isActive && 'active', 'link']">All Books</li>
         </router-link>
-        <router-link v-slot="{ isActive }" to="/register">
-          <li :class="[isActive && 'active', 'link']">Register or Update Book</li>
+        <router-link v-slot="{ isActive }" to="/update">
+          <li :class="[isActive && 'active', 'link']">Update Book</li>
         </router-link>
         <router-link v-slot="{ isActive }" to="/chat">
           <li :class="[isActive && 'active', 'link']">Chatt</li>
         </router-link>
-        <router-link v-slot="{ isActive }" to="/update">
-          <li :class="[isActive && 'active', 'link']">Update</li>
+        <router-link v-slot="{ isActive }" to="/create">
+          <li :class="[isActive && 'active', 'link']">Create</li>
         </router-link>
       </ul>
     </nav>

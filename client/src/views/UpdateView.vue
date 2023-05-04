@@ -1,13 +1,30 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import {ref, reactive} from 'vue'
 
-const title = ref('')
+/* GET */
+
+
+const books = ref([]);
+const title2 = ref('')
 const releaseYear = ref('')
 const author = ref('')
 const genreId = ref('')
-const description = ref('')
 
+const bookIdToForm = ref('')
+
+
+const getAllBooks = () => {
+  return axios
+    .get('http://localhost:3000/books')
+    .then((res) => (books.value = res.data))
+    .catch((error) => console.log(error));
+};
+onMounted(() => {
+  getAllBooks().then(() => {
+  });
+});
+console.log(books);
 function selectedAuthor(id) {
   author.value = id
   console.log(id);
@@ -15,25 +32,27 @@ function selectedAuthor(id) {
 
 function selectedGenre(idGenre) {
   genreId.value = idGenre
-  console.log(id);
+  console.log(idGenre);
 }
 
 function onSubmit() {
-  console.log(genreId.value);
+  console.log(`http://localhost:3000/books/${bookIdToForm.value}`);
   axios
-  .post("http://localhost:3000/books", 
-  { 
+  .put(`http://localhost:3000/books/${bookIdToForm.value}`, 
+  {   
       authorId: author.value,
       title: title.value, 
       genre: genreId.value, 
       releaseYear: releaseYear.value })
   .then((res) => console.log(res.data))
   .catch((error) => console.log(error));
-  title.value = ''
+  title2.value = ''
   releaseYear.value = ''
-  description.value = ''
   author.value = ''
   genreId.value = ''
+  bookIdToForm.value = ''
+
+  getAllBooks()
 }
 
 const authors = ref([]);
@@ -53,41 +72,87 @@ const getAllGenres = () => {
     .get("http://localhost:3000/genres")
     .then((res) => (genres.value = res.data))
     .catch((error) => console.log(error));
-    
 };
 
 getAllGenres()
 
+function handleClick(bookId) {
+  const book = books.value.find((book) => book.book_id === bookId)
+
+
+  console.log(books.value);
+  title2.value=book.title
+  genreId.value=book.genre_id
+  releaseYear.value=book.release_year
+  author.value=book.author_id
+  bookIdToForm.value = book.book_id
+  
+}
 </script>
 
-
 <template>
-  <div class="form-wrapper">
-<form @submit.prevent="onSubmit">
-<input v-model="title" type="text" name="title" id="title" placeholder="Title">
-<input v-model="releaseYear" type="number" name="releaseYear" id="releaseYear" placeholder="Release year">
-<input v-model="description" type="text" name="description" id="description" placeholder="Description(optional)">
+  <div class="main">
+    <div class="book-wrapper">
+      <div @click="handleClick(book.book_id)" v-for="book in books" :key="book.book_id" class="box">
+        <h2>{{ book.title }}</h2>
+      </div>
+    </div>
+    <div class="form-wrapper">
+      <form @submit.prevent="onSubmit">
+        <input 
+        v-model="bookIdToForm"
+        type="number"
+        name="bookId"
+        id="bookId"
+        />
+        <input
+          v-model="title2"
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Title"
+        />
+        <input
+          v-model="releaseYear"
+          type="number"
+          name="releaseYear"
+          id="releaseYear"
+          placeholder="Release year"
+        />
 
-<select v-model="author">
-  <option disabled value="">Select an Author</option>
-  <option @click="selectedAuthor(author.author_id)" :value="author.author_id" v-for="author in authors" :key="author.author_id">{{ author.first_name }} {{ author.last_name }}</option>
-</select>
+        <select v-model="author">
+          <option disabled value="">Select an Author</option>
+          <option
+            @click="selectedAuthor(author.author_id)"
+            :value="author.author_id"
+            v-for="author in authors"
+            :key="author.author_id"
+          >
+            {{ author.first_name }} {{ author.last_name }}
+          </option>
+        </select>
 
-<select v-model="genreId">
-  <option disabled value="">Select a Genre</option>
-  <option @click="selectedGenre(genre_id)" v-for="genre in genres" :key="genre.genre_id">{{ genre.genre }} {{ genre.genre_id }}</option>
-</select>
+        <select v-model="genreId">
+          <option disabled value="">Select a Genre</option>
+          <option
+            @click="selectedGenre(genre.genre_id)"
+            v-for="genre in genres"
+            :value="genre.genre_id"
+            :key="genre.genre_id"
+          >
+            {{ genre.genre }}
+          </option>
+        </select>
 
-<button @submit="onSubmit">Create New Book</button>
-</form>
-</div>
+        <button @submit="onSubmit">Upd Book</button>
+      </form>
+    </div>
+  </div>
 </template>
 
-<style  scoped>
-.form-wrapper{
+<style scoped>
+.main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
 }
 </style>
