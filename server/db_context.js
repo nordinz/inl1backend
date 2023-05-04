@@ -5,7 +5,12 @@ const db = pgp(
 );
 
 function selectAllBooks() {
-  return db.many('SELECT * FROM book');
+  return db.many(`SELECT * 
+  FROM book 
+  INNER JOIN author 
+  ON book.author_id = author.author_id
+  INNER JOIN genre
+  ON book.genre_id = genre.genre_id`);
 }
 
 async function updateBook({ authorId, title, genre, releaseYear, bookId }) {
@@ -28,8 +33,43 @@ async function createBook({ authorId, title, genre, releaseYear }) {
   return rowCount;
 }
 
+async function removeBook(bookId) {
+  let result = await db.none(`DELETE FROM book WHERE book_id = '${bookId}'`);
+
+  return result;
+}
+
+async function searchBook(keyword) {
+  let data = await db.any(`SELECT * FROM book WHERE title LIKE '${keyword}%'`);
+
+  return data;
+}
+
+function selectAllAuthors() {
+  return db.many('SELECT * FROM author');
+}
+
+async function searchAuthor(keyword) {
+  let data = await db.any(
+    `SELECT * FROM author WHERE LOWER(first_name) LIKE '${keyword.toLowerCase()}%' OR LOWER(last_name) LIKE '${keyword.toLowerCase()}%'`
+  );
+  console.log(data);
+
+  return data;
+}
+
+function selectAllGenres() {
+  return db.many(`SELECT * 
+  FROM genre`);
+}
+
 module.exports = {
   selectAllBooks,
   updateBook,
   createBook,
+  selectAllAuthors,
+  removeBook,
+  searchBook,
+  searchAuthor,
+  selectAllGenres,
 };

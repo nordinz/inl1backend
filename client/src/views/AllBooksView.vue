@@ -1,10 +1,10 @@
 <script setup>
-import Chat from '../components/Chat.vue'
+import AllBooks from '../components/AllBooks.vue'
 </script>
 
 <template>
- 
-<Chat/>
+
+<AllBooks/>
 
 </template>
 

@@ -2,20 +2,23 @@
 
 <template>
   <section class="header">
-    <p>Library</p>
+    <img class="panda-logo" src="../assets/img/panda_logo.png" alt="">
     <nav>
       <ul>
         <router-link v-slot="{ isActive }" to="/">
           <li :class="[isActive && 'active', 'link']">Home</li>
         </router-link>
         <router-link v-slot="{ isActive }" to="/search">
-          <li :class="[isActive && 'active', 'link']">Search</li>
+          <li :class="[isActive && 'active', 'link']">All Books</li>
         </router-link>
         <router-link v-slot="{ isActive }" to="/register">
-          <li :class="[isActive && 'active', 'link']">Register</li>
+          <li :class="[isActive && 'active', 'link']">Register or Update Book</li>
         </router-link>
         <router-link v-slot="{ isActive }" to="/chat">
           <li :class="[isActive && 'active', 'link']">Chatt</li>
+        </router-link>
+        <router-link v-slot="{ isActive }" to="/update">
+          <li :class="[isActive && 'active', 'link']">Update</li>
         </router-link>
       </ul>
     </nav>
@@ -31,7 +34,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 80px;
-  background-color: var(--blue);
+  background-color: #f05c8c;
   /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6); */
   z-index: 99;
   position: sticky;
@@ -58,7 +61,7 @@ ul {
   transition: 0.3s;
 }
 .active {
-  color: var(--blue);
+  color: #000000;
   background-color: white;
   padding: 5px 12px 5px 12px;
   border-radius: 15px;
@@ -68,6 +71,10 @@ nav a li:hover {
   background-color: rgba(255, 255, 255, 0.386);
   padding: 5px 12px 5px 12px;
   border-radius: 15px;
+}
+.panda-logo{
+  height: auto;
+  width: 300px;
 }
 @media only screen and (max-width: 900px) {
   nav {

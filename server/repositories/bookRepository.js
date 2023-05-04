@@ -20,8 +20,13 @@ async function createBook(data) {
   return await db_context.createBook(data);
 }
 
+async function removeBook(data) {
+  return await db_context.removeBook(data);
+}
+
 module.exports = {
   getAllBooks,
   updateBook,
   createBook,
+  removeBook,
 };

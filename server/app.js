@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/books', routes.bookRouter);
-app.use('/author', routes.authorRouter);
+app.use('/authors', routes.authorRouter);
+app.use('/genres', routes.genreRouter);
 
 module.exports = app;
