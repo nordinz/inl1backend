@@ -1,47 +1,49 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <main>
     <div class="wrapper">
       <h1>Welcome to the Panda Library!</h1>
-      
     </div>
     <div class="panda-wrapper">
       <div class="panda search">
-        <img src="../assets/img/panda_search.png" alt="">
-        <h3 class="site-menu-text">Search for a book @the Panda Library</h3>
+        <img src="../assets/img/panda_search.png" alt="" />
+        <router-link v-slot="{ isActive }" to="/search">
+          <li :class="[isActive && 'active', 'link']">
+            Search for a book or author
+          </li>
+        </router-link>
       </div>
       <div class="panda register">
-        <img src="../assets/img/panda_register.png" alt="">
-        <h3 class="site-menu-text">Register a new book or update a book</h3>
+        <img src="../assets/img/panda_register.png" alt="" />
+        <router-link v-slot="{ isActive }" to="/create">
+          <li :class="[isActive && 'active', 'link']">Create s new book</li>
+        </router-link>
       </div>
       <div class="panda chat">
-        <img src="../assets/img/panda_chat.png" alt="">
-        <h3 class="site-menu-text">Chat with a very knowledgeable panda</h3>
+        <img src="../assets/img/panda_chat.png" alt="" />
+        <router-link v-slot="{ isActive }" to="/search">
+          <li :class="[isActive && 'active', 'link']">Search for a book</li>
+        </router-link>
       </div>
     </div>
-   
-   
   </main>
 </template>
+
 <style scoped>
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
-.panda{
+.panda {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
-h1{
+h1 {
   padding-top: 100px;
   padding-bottom: 50px;
   order: 2;
@@ -57,36 +59,36 @@ h1{
     6px 6px 1px #165bfb, 8px 6px 1px #4af7ff, 7px 7px 1px #165bfb,
     9px 7px 1px #4af7ff;
 }
-img{
+img {
   height: auto;
   width: 300px;
   padding-bottom: 5%;
 }
-.panda-wrapper{
+.panda-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding-top: 6%;
   flex-wrap: wrap;
 }
-h3 {
+li {
   text-transform: uppercase;
-  --s: 0.1em;   /* the thickness of the line */
+  --s: 0.1em; /* the thickness of the line */
   --c: #f05c8c; /* the color */
-  
+
   color: #0000;
   padding-bottom: var(--s);
-  background: 
-    linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
-    linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
-  -webkit-background-clip: text,padding-box;
-          background-clip: text,padding-box;
+  background: linear-gradient(90deg, var(--c) 50%, #000 0)
+      calc(100% - var(--_p, 0%)) / 200% 100%,
+    linear-gradient(var(--c) 0 0) 0% 100% / var(--_p, 0%) var(--s) no-repeat;
+  -webkit-background-clip: text, padding-box;
+  background-clip: text, padding-box;
   transition: 0.5s;
-}
-h3:hover {--_p: 100%}
-h3 {
   font-family: system-ui, sans-serif;
   font-size: 1.5rem;
   cursor: pointer;
+}
+li:hover {
+  --_p: 100%;
 }
 </style>

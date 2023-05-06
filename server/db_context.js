@@ -10,7 +10,9 @@ function selectAllBooks() {
   INNER JOIN author 
   ON book.author_id = author.author_id
   INNER JOIN genre
-  ON book.genre_id = genre.genre_id`);
+  ON book.genre_id = genre.genre_id
+  INNER JOIN quantity
+  ON book.quantity_id = quantity.quantity_id`);
 }
 
 async function updateBook({ authorId, title, genre, releaseYear, bookId }) {
@@ -40,7 +42,12 @@ async function removeBook(bookId) {
 }
 
 async function searchBook(keyword) {
-  let data = await db.any(`SELECT * FROM book WHERE title LIKE '${keyword}%'`);
+  let data = await db.any(`SELECT * FROM book 
+  INNER JOIN quantity
+  ON book.quantity_id = quantity.quantity_id
+  WHERE title 
+  LIKE '${keyword}%'
+  `);
 
   return data;
 }

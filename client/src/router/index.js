@@ -4,6 +4,7 @@ import Chat from '../views/ChatView.vue';
 import AllBooks from '../views/AllBooksView.vue';
 import CreateView from '../views/CreateView.vue';
 import UpdateView from '../views/UpdateView.vue';
+import SearchView from '../views/SearchView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +20,7 @@ const router = createRouter({
       component: Chat,
     },
     {
-      path: '/search',
+      path: '/all',
       name: 'books',
       component: AllBooks,
     },
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/update',
       name: 'update',
       component: UpdateView,
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchView,
     },
   ],
 });

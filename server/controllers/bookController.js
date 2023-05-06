@@ -3,6 +3,7 @@ const {
   updateBook,
   createBook,
   removeBook,
+  searchBook,
 } = require('../repositories/bookRepository');
 
 async function get(req, res) {
@@ -60,9 +61,17 @@ async function remove(req, res) {
     .json({ message: `Book with ID: ${bookId} is deleted` });
 }
 
+async function search(req, res) {
+  const { q } = req.query;
+  let data = await searchBook(q);
+  console.log(q);
+  return res.json(data);
+}
+
 module.exports = {
   get,
   update,
   create,
   remove,
+  search,
 };

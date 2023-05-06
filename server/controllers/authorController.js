@@ -9,9 +9,8 @@ async function get(req, res) {
 }
 
 async function search(req, res) {
-  let data = await searchAuthor(req.body.keyword);
-  // console.log(req.body, req.body.keyword);
-
+  const { q } = req.query;
+  let data = await searchAuthor(q);
   return res.json(data);
 }
 

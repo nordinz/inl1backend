@@ -1,10 +1,9 @@
 <script setup>
-// import axios from 'axios'
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const books = ref([]);
-/* GET */
+/* GET ALL BOOKS */
 const getAllBooks = () => {
   return axios
     .get("http://localhost:3000/books")
@@ -17,7 +16,7 @@ onMounted(() => {
     console.log(books.value);
   });
 });
-
+/* DELETE A BOOK */
 function deleteBook(id){
   axios
     .delete(`http://localhost:3000/books/${id}`)
@@ -30,16 +29,15 @@ function deleteBook(id){
   })
 }
 
-function updateBook(bookId) {
 
-}
-console.log(books[0]);
+
 </script>
 
 <template>
  <div class="main">
     <div v-for="book in books" :key="book.book_id" class="box">
       <h2>{{ book.title }}</h2>
+      <h3>Copies: {{ book.total }} | In Store: {{ book.in_store }}</h3>
       <p>{{ book.description }}</p>
       <p>Genre {{ book.genre }}</p>
       <p>Release year: {{ book.release_year }} -ish</p> 
@@ -47,7 +45,7 @@ console.log(books[0]);
       <div class="btn-wrapper">
         <button @click="deleteBook(book.book_id)" class="btn-pink">Delete Book</button>
 
-        <button @click="updateBook(book.book_id)" class="btn-pink">Borrow Book</button>
+        
         
       </div>
       
@@ -95,12 +93,10 @@ h2{
 }
 .btn-pink{
     width: 50%;
-    background-color: #f05c8c;
-    padding: 10px 20px;
-    color: #ffffff;
-    border-radius: 20px;
-    text-decoration: none;
-    box-shadow: 0 -1px 0 #A10084 inset;
+    background-color: #ee92af;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
 }
 </style>

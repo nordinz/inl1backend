@@ -2,13 +2,13 @@
 
 <template>
   <section class="header">
-    <img class="panda-logo" src="../assets/img/panda_logo.png" alt="">
+    <img class="panda-logo" src="../assets/img/panda_logo.png" alt="" />
     <nav>
       <ul>
         <router-link v-slot="{ isActive }" to="/">
           <li :class="[isActive && 'active', 'link']">Home</li>
         </router-link>
-        <router-link v-slot="{ isActive }" to="/search">
+        <router-link v-slot="{ isActive }" to="/all">
           <li :class="[isActive && 'active', 'link']">All Books</li>
         </router-link>
         <router-link v-slot="{ isActive }" to="/update">
@@ -20,9 +20,11 @@
         <router-link v-slot="{ isActive }" to="/create">
           <li :class="[isActive && 'active', 'link']">Create</li>
         </router-link>
+        <router-link v-slot="{ isActive }" to="/search">
+          <li :class="[isActive && 'active', 'link']">Search</li>
+        </router-link>
       </ul>
     </nav>
-    
   </section>
   <RouterView />
 </template>
@@ -30,7 +32,7 @@
 <style scoped>
 .header {
   display: flex;
-  
+
   align-items: center;
   justify-content: space-between;
   padding: 20px 80px;
@@ -63,16 +65,16 @@ ul {
 .active {
   color: #000000;
   background-color: white;
-  padding: 5px 12px 5px 12px;
+  padding: 5px 12px;
   border-radius: 15px;
 }
 nav a li:hover {
   color: rgb(255, 255, 255);
   background-color: rgba(255, 255, 255, 0.386);
-  padding: 5px 12px 5px 12px;
+  padding: 5px 12px;
   border-radius: 15px;
 }
-.panda-logo{
+.panda-logo {
   height: auto;
   width: 300px;
 }

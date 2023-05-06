@@ -4,15 +4,13 @@ import axios from 'axios';
 
 /* GET */
 
-
 const books = ref([]);
-const title2 = ref('')
-const releaseYear = ref('')
-const author = ref('')
-const genreId = ref('')
-
-const bookIdToForm = ref('')
-
+const title2 = ref('');
+const releaseYear = ref('');
+const author = ref('');
+const genreId = ref('');
+const message = ref('');
+const bookIdToForm = ref('');
 
 const getAllBooks = () => {
   return axios
@@ -21,90 +19,87 @@ const getAllBooks = () => {
     .catch((error) => console.log(error));
 };
 onMounted(() => {
-  getAllBooks().then(() => {
-  });
+  getAllBooks().then(() => {});
 });
 console.log(books);
 function selectedAuthor(id) {
-  author.value = id
+  author.value = id;
   console.log(id);
 }
 
 function selectedGenre(idGenre) {
-  genreId.value = idGenre
+  genreId.value = idGenre;
   console.log(idGenre);
 }
 
 function onSubmit() {
-  console.log(`http://localhost:3000/books/${bookIdToForm.value}`);
   axios
-  .put(`http://localhost:3000/books/${bookIdToForm.value}`, 
-  {   
+    .put(`http://localhost:3000/books/${bookIdToForm.value}`, {
       authorId: author.value,
-      title: title.value, 
-      genre: genreId.value, 
-      releaseYear: releaseYear.value })
-  .then((res) => console.log(res.data))
-  .catch((error) => console.log(error));
-  title2.value = ''
-  releaseYear.value = ''
-  author.value = ''
-  genreId.value = ''
-  bookIdToForm.value = ''
-
-  getAllBooks()
+      title: title.value,
+      genre: genreId.value,
+      releaseYear: releaseYear.value,
+    })
+    .then((res) => (message.value = res.data.message))
+    .then(() => {
+      title2.value = '';
+      releaseYear.value = '';
+      author.value = '';
+      genreId.value = '';
+      bookIdToForm.value = '';
+      getAllBooks();
+    })
+    .catch((error) => console.log(error));
 }
 
 const authors = ref([]);
 /* GET */
 const getAllAuthors = () => {
   return axios
-    .get("http://localhost:3000/authors")
+    .get('http://localhost:3000/authors')
     .then((res) => (authors.value = res.data))
     .catch((error) => console.log(error));
 };
-getAllAuthors()
+getAllAuthors();
 
 const genres = ref([]);
 /* GET */
 const getAllGenres = () => {
   return axios
-    .get("http://localhost:3000/genres")
+    .get('http://localhost:3000/genres')
     .then((res) => (genres.value = res.data))
     .catch((error) => console.log(error));
 };
 
-getAllGenres()
+getAllGenres();
 
 function handleClick(bookId) {
-  const book = books.value.find((book) => book.book_id === bookId)
-
+  const book = books.value.find((book) => book.book_id === bookId);
 
   console.log(books.value);
-  title2.value=book.title
-  genreId.value=book.genre_id
-  releaseYear.value=book.release_year
-  author.value=book.author_id
-  bookIdToForm.value = book.book_id
-  
+  title2.value = book.title;
+  genreId.value = book.genre_id;
+  releaseYear.value = book.release_year;
+  author.value = book.author_id;
+  bookIdToForm.value = book.book_id;
 }
 </script>
 
 <template>
   <div class="main">
     <div class="book-wrapper">
-      <div @click="handleClick(book.book_id)" v-for="book in books" :key="book.book_id" class="box">
+      <div
+        @click="handleClick(book.book_id)"
+        v-for="book in books"
+        :key="book.book_id"
+        class="box"
+      >
         <h2>{{ book.title }}</h2>
       </div>
     </div>
     <div class="form-wrapper">
       <form @submit.prevent="onSubmit">
-        <input 
-        v-model="bookIdToForm"
-        type="number"
-        name="bookId"
-        id="bookId"
-        />
+        <input v-model="bookIdToForm" type="number" name="bookId" id="bookId" />
         <input
           v-model="title2"
           type="text"
@@ -147,6 +142,7 @@ function handleClick(bookId) {
         <button @submit="onSubmit">Upd Book</button>
       </form>
     </div>
+    <div class="message">{{ message }}</div>
   </div>
 </template>
 

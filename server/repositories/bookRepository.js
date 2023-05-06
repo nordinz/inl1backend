@@ -24,9 +24,14 @@ async function removeBook(data) {
   return await db_context.removeBook(data);
 }
 
+async function searchBook(data) {
+  return await db_context.searchBook(data);
+}
+
 module.exports = {
   getAllBooks,
   updateBook,
   createBook,
   removeBook,
+  searchBook,
 };

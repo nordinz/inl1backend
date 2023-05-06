@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendMessage', (message) => {
-    io.to(mainRoom).emit('chatMessage', message);
+    io.to(mainRoom).emit('chatMessage', { message, socketId: socket.id });
     console.log(message);
   });
 });

@@ -1,55 +1,71 @@
 <script setup>
-import { io } from "socket.io-client";
-import {reactive} from 'vue'
-const socket = io("http://localhost:3001");
-const state = reactive({message: '', isInMainChat: false, chatMessages:[], userName: ''})
-socket.on("connect", () => {
-  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+import { io } from 'socket.io-client';
+import { reactive } from 'vue';
+const socket = io('http://localhost:3001');
+const state = reactive({
+  message: '',
+  isInMainChat: false,
+  chatMessages: [],
+  userName: '',
+  socketId: '',
 });
-// console.log(state.message);
-socket.on('serverMessage', (data)=>{
+socket.on('connect', () => {
+  console.log(socket.id);
+  state.socketId = socket.id;
+});
+
+socket.on('serverMessage', (data) => {
   console.log(data);
-  state.isInMainChat = data.isConnected
-})
+  state.isInMainChat = data.isConnected;
+});
 
 function sendMessage() {
-  socket.emit('sendMessage', state.message)
-  state.message=''
+  socket.emit('sendMessage', state.message);
+  state.message = '';
 }
 
-socket.on('chatMessage', (chatMessage)=>{
-  state.chatMessages.push(chatMessage)
-})
-
+socket.on('chatMessage', (chatMessage) => {
+  console.log(chatMessage);
+  state.chatMessages.push(chatMessage);
+});
 </script>
 
 <template>
   <div v-if="state.isInMainChat" class="wrapper">
     <div class="text-top">Chat</div>
-  <div class="message-box">
-    <p v-for="message in state.chatMessages" :key="Math.floor(Math.random() * 1234)">{{ message }}</p>
+    <div class="message-box">
+      <p
+        :class="{ myMessages: state.socketId == message.socketId }"
+        v-for="message in state.chatMessages"
+        :key="Math.floor(Math.random() * 1234)"
+      >
+        {{ message.message }}
+      </p>
+    </div>
+
+    <input type="text" v-model="state.message" />
+    <button @click="sendMessage">Send</button>
   </div>
-  
-<input type="text" v-model="state.message">
-<button @click="sendMessage">Send</button>
-</div>
-<div v-else class="wrapper">
-  <div class="text-top">Waitingroom</div>
-  <div class="panda">
-    <img src="../assets/img/sleeping-panda.webp" alt="">
+  <div v-else class="wrapper">
+    <div class="text-top">Waitingroom</div>
+    <div class="panda">
+      <img src="../assets/img/sleeping-panda.webp" alt="" />
+    </div>
   </div>
-</div>
 </template>
 
 <style scoped>
-*{
+* {
   font-size: large;
 }
-img {
-max-width: 100%;
-width: 800px;
+.myMessages {
+  text-align: right;
 }
-.wrapper{
+img {
+  max-width: 100%;
+  width: 800px;
+}
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +81,7 @@ width: 800px;
   box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
   min-width: 500px;
 }
-.text-top{
+.text-top {
   padding-top: 50px;
   padding-bottom: 100px;
   color: #f05c8c;

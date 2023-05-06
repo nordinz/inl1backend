@@ -6,7 +6,8 @@ const title = ref('')
 const releaseYear = ref('')
 const author = ref('')
 const genreId = ref('')
-const description = ref('')
+const message = ref('')
+
 
 function selectedAuthor(id) {
   author.value = id
@@ -27,11 +28,10 @@ function onSubmit() {
       title: title.value, 
       genre: genreId.value, 
       releaseYear: releaseYear.value })
-  .then((res) => console.log(res.data))
+  .then((res) => (message.value = res.data.message))
   .catch((error) => console.log(error));
   title.value = ''
   releaseYear.value = ''
-  description.value = ''
   author.value = ''
   genreId.value = ''
 }
@@ -65,7 +65,7 @@ getAllGenres()
 <form @submit.prevent="onSubmit">
 <input v-model="title" type="text" name="title" id="title" placeholder="Title">
 <input v-model="releaseYear" type="number" name="releaseYear" id="releaseYear" placeholder="Release year">
-<input v-model="description" type="text" name="description" id="description" placeholder="Description(optional)">
+
 
 <select v-model="author">
   <option disabled value="">Select an Author</option>
@@ -80,6 +80,7 @@ getAllGenres()
 <button @submit="onSubmit">Create New Book</button>
 </form>
 </div>
+<div class="message">{{ message }}</div>
 </template>
 
 <style  scoped>
