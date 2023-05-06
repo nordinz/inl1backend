@@ -99,7 +99,14 @@ function handleClick(bookId) {
     </div>
     <div class="form-wrapper">
       <form @submit.prevent="onSubmit">
-        <input v-model="bookIdToForm" type="number" name="bookId" id="bookId" />
+        <input
+          v-model="bookIdToForm"
+          type="number"
+          name="bookId"
+          id="bookId"
+          placeholder="Book ID"
+          disabled
+        />
         <input
           v-model="title2"
           type="text"
