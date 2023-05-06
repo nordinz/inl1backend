@@ -45,8 +45,8 @@ async function searchBook(keyword) {
   let data = await db.any(`SELECT * FROM book 
   INNER JOIN quantity
   ON book.quantity_id = quantity.quantity_id
-  WHERE title 
-  LIKE '${keyword}%'
+  WHERE LOWER(title) 
+  LIKE '${keyword.toLowerCase()}%'
   `);
 
   return data;

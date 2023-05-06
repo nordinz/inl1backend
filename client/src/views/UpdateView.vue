@@ -157,5 +157,28 @@ function handleClick(bookId) {
 .main {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.book-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-radius: 20px;
+  box-shadow: 0px 30px 40px -10px #000000;
+  padding-top: 30px;
+  margin: 20px;
+  max-width: 400px;
+  text-align: left;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 </style>
