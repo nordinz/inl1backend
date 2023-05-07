@@ -37,7 +37,7 @@ async function create(req, res) {
   const { authorId, title, genre, releaseYear } = req.body;
 
   if (!authorId || !title || !genre || !releaseYear) {
-    console.log('hello');
+    // console.log('hello');
     return res.json('Plz fill ut all forms!');
   }
   const rowCount = await createBook({
