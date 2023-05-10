@@ -116,10 +116,15 @@ getAllGenres();
 
 <style scoped>
 .form-wrapper {
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: hsl(0, 0%, 100%);
+  border: 4px solid hsl(0, 0%, 90%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 2rem;
 }
 .panda {
   display: flex;
@@ -133,7 +138,14 @@ img {
   padding-bottom: 5%;
 }
 .message-wrapper {
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: hsl(0, 0%, 100%);
+  border: 4px solid hsl(0, 0%, 90%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 </style>

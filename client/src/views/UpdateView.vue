@@ -97,59 +97,64 @@ function handleClick(bookId) {
         <h2>{{ book.title }}</h2>
       </div>
     </div>
-    <div class="form-wrapper">
-      <form @submit.prevent="onSubmit">
-        <input
-          v-model="bookIdToForm"
-          type="number"
-          name="bookId"
-          id="bookId"
-          placeholder="Book ID"
-          disabled
-        />
-        <input
-          v-model="title2"
-          type="text"
-          name="title"
-          id="title"
-          placeholder="Title"
-        />
-        <input
-          v-model="releaseYear"
-          type="number"
-          name="releaseYear"
-          id="releaseYear"
-          placeholder="Release year"
-        />
 
-        <select v-model="author">
-          <option disabled value="">Select an Author</option>
-          <option
-            @click="selectedAuthor(author.author_id)"
-            :value="author.author_id"
-            v-for="author in authors"
-            :key="author.author_id"
-          >
-            {{ author.first_name }} {{ author.last_name }}
-          </option>
-        </select>
+    <section class="form-message-wrapper">
+      <div class="form-wrapper">
+        <form @submit.prevent="onSubmit">
+          <input
+            v-model="bookIdToForm"
+            type="number"
+            name="bookId"
+            id="bookId"
+            placeholder="Book ID"
+            disabled
+          />
+          <input
+            v-model="title2"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Title"
+          />
+          <input
+            v-model="releaseYear"
+            type="number"
+            name="releaseYear"
+            id="releaseYear"
+            placeholder="Release year"
+          />
 
-        <select v-model="genreId">
-          <option disabled value="">Select a Genre</option>
-          <option
-            @click="selectedGenre(genre.genre_id)"
-            v-for="genre in genres"
-            :value="genre.genre_id"
-            :key="genre.genre_id"
-          >
-            {{ genre.genre }}
-          </option>
-        </select>
+          <select v-model="author">
+            <option disabled value="">Select an Author</option>
+            <option
+              @click="selectedAuthor(author.author_id)"
+              :value="author.author_id"
+              v-for="author in authors"
+              :key="author.author_id"
+            >
+              {{ author.first_name }} {{ author.last_name }}
+            </option>
+          </select>
 
-        <button @submit="onSubmit">Upd Book</button>
-      </form>
-    </div>
-    <div class="message">{{ message }}</div>
+          <select v-model="genreId">
+            <option disabled value="">Select a Genre</option>
+            <option
+              @click="selectedGenre(genre.genre_id)"
+              v-for="genre in genres"
+              :value="genre.genre_id"
+              :key="genre.genre_id"
+            >
+              {{ genre.genre }}
+            </option>
+          </select>
+
+          <button @submit="onSubmit">Upd Book</button>
+        </form>
+      </div>
+      <div class="message-wrapper">
+        <h2>{{ message }}</h2>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -167,8 +172,8 @@ function handleClick(bookId) {
   gap: 10px;
   padding-bottom: 10px;
   border-radius: 20px;
-  box-shadow: 0px 30px 40px -10px #000000;
-  padding-top: 30px;
+  border: 4px solid hsl(0, 0%, 90%);
+  padding: 30px;
   margin: 20px;
   max-width: 400px;
   text-align: left;
@@ -178,7 +183,29 @@ function handleClick(bookId) {
   cursor: pointer;
 }
 .form-wrapper {
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: hsl(0, 0%, 100%);
+  border: 4px solid hsl(0, 0%, 90%);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.message-wrapper {
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.form-message-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -1,13 +1,13 @@
-:root{
-  --blue:rgb(225, 0, 255);
+:root {
+  --blue: rgb(225, 0, 255);
 }
 
-*{
+* {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  
 }
-ul, li{
+ul,
+li {
   padding: 0;
   text-decoration: none;
   list-style: none;

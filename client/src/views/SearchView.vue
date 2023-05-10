@@ -19,14 +19,17 @@ const searchBooks = () => {
 
 <template>
   <form v-on:submit.prevent="searchBooks" class="wrapper">
-    <section>
-      <div>Search for: {{ picked }}</div>
+    <section class="search-wrapper">
+      <div>
+        <h2>Search for: {{ picked }}</h2>
+      </div>
+      <section>
+        <input type="radio" id="one" value="books" v-model="picked" />
+        <label for="one">Book</label>
 
-      <input type="radio" id="one" value="books" v-model="picked" />
-      <label for="one">Book</label>
-
-      <input type="radio" id="two" value="authors" v-model="picked" />
-      <label for="two">Author</label>
+        <input type="radio" id="two" value="authors" v-model="picked" />
+        <label for="two">Author</label>
+      </section>
     </section>
     <input
       v-model="keyword"
@@ -57,4 +60,23 @@ const searchBooks = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: hsl(0, 0%, 100%);
+  border: 4px solid hsl(0, 0%, 90%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.search-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+</style>
